@@ -11,6 +11,8 @@ import Foundation
 private let api_key = "5246ab977f52f9081f9a018203308809"
 
 private var pageSearch: Int = 1
+private var titleSearch: String?
+
 
 protocol APIBuilderProtocol {
     var baseUrl: URL { get }
@@ -22,8 +24,10 @@ protocol APIBuilderProtocol {
 enum MovieDBApi {
     case getPopularMovies(page: Int)
     case getMovieDetails(id: Int)
+    case searchMovie(title: String)
     case getPopularTvShows(page: Int)
     case getTvShowDetails(id: Int)
+    
 }
 
 
@@ -36,29 +40,56 @@ extension MovieDBApi: APIBuilderProtocol {
     var path: String {
         switch self {
             case .getPopularMovies(let page):
+                titleSearch = nil
                 pageSearch = page
                 return "movie/popular"
             case .getMovieDetails(let id):
+                titleSearch = nil
                 return "movie/\(id)"
+            case .searchMovie(let title):
+                titleSearch = title
+                return "search/movie"
             case .getPopularTvShows(let page):
+                titleSearch = nil
                 pageSearch = page
                 return "tv/popular"
             case .getTvShowDetails(let id):
+                titleSearch = nil
                 return "tv/\(id)"
         }
     }
     
     var urlRequest: URLRequest {
-        return URLRequest(url: baseUrl.appendingPathComponent(self.path)
-                                      .appending(queryItems:
-                                                    [
-                                                        URLQueryItem(name: "api_key", value: api_key),
-                                                        URLQueryItem(name: "page", value: "\(pageSearch)"),
-                                                    ])
-                        )
+        
+        
+        let path = self.path
+        
+        var queryItems = [
+            URLQueryItem(name: "api_key", value: api_key),
+            URLQueryItem(name: "page", value: "\(pageSearch)"),
+        ]
+        
+        if(titleSearch != nil){
+            print(titleSearch!)
+            queryItems.append(
+                URLQueryItem(name: "query", value: titleSearch!)
+            )
+        }
+        
+        let urlrequest = URLRequest(url: baseUrl.appendingPathComponent(path).appending(queryItems: queryItems))
+        
+        
+        
+        
+        
+        print(urlrequest)
+        
+        return urlrequest
+                
+        
     }
     
 }
 
 
-//https://api.themoviedb.org/3/movie/popular?api_key=5246ab977f52f9081f9a018203308809&page=1&language=es
+

@@ -27,6 +27,7 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
     
     @Published private(set) var state: ResultState = .loading
     
+    
     init(service: MovieDBService) {
         self.service = service
     }
@@ -68,6 +69,26 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
                 }
             } receiveValue: { response in
                 self.movieList.append(response)
+            }
+        self.cancellables.insert(cancellable)
+    }
+    
+    func searchMovie(by title: String) {
+        
+        self.movieList.removeAll()
+        self.state = .loading
+        
+        let cancellable = service
+            .request(from: .searchMovie(title: title), decodingType: ApiResponse.self)
+            .sink { result in
+                switch result{
+                case .finished:
+                    self.state = .success(content: self.movieList)
+                case .failure(let error):
+                    self.state = .failed(error: error)
+                }
+            } receiveValue: { response in
+                self.movieList.append(contentsOf: response.movies)
             }
         self.cancellables.insert(cancellable)
     }
