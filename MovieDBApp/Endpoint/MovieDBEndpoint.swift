@@ -9,7 +9,6 @@ import Foundation
 
 
 private let api_key = "5246ab977f52f9081f9a018203308809"
-let imageUrl = "https://image.tmdb.org/t/p/w500/"
 
 private var pageSearch: Int = 1
 
