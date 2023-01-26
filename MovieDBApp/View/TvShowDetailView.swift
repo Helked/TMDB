@@ -11,11 +11,8 @@ struct TvShowDetailView: View {
     @ObservedObject var viewModel = MovieDBViewModel(service: MovieDBService())
     let movieId: Int
     
-    private let urlImagePath = "https://image.tmdb.org/t/p/w500"
-    
     var body: some View {
         Group {
-            let _ = print(movieId)
             
             switch viewModel.state {
             case .loading:
@@ -33,7 +30,7 @@ struct TvShowDetailView: View {
                 
                 VStack{
                     if let bannerUrl = movie.banner,
-                       let url = URL(string: "\(self.urlImagePath)\(bannerUrl)"){
+                       let url = URL(string: "\(URL_IMAGE_PATH)\(bannerUrl)"){
                         
                         MovieImageView(width: .infinity, height: 200, url: url)
                             

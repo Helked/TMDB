@@ -7,19 +7,12 @@
 
 import Foundation
 
-struct ApiResponse: Decodable {
-    let movies: [Movie]
-    
-    enum CodingKeys: String, CodingKey {
-        case movies = "results"
-    }
-}
 
 struct Movie: Decodable, Identifiable {
     let id: Int
     let title: String?
     let name: String?
-    let poster: String
+    let poster: String?
     let banner: String?
     let release: String?
     let firstDate: String?
@@ -45,10 +38,6 @@ struct Movie: Decodable, Identifiable {
     
 }
 
-struct Genre: Decodable, Identifiable {
-    let id: Int
-    let name: String
-}
 
 
 extension Movie {

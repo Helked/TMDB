@@ -11,17 +11,13 @@ struct MovieCellView: View {
     
     let movie: Movie
     
-    
-    private let urlImagePath = "https://image.tmdb.org/t/p/w500"
     var viewModel = MovieDBViewModel(service: MovieDBService())
-    
-    
     
     
     var body: some View {
         HStack (alignment: .top) {
             if let imgUrl = movie.poster,
-               let url = URL(string: "\(self.urlImagePath)\(imgUrl)"){
+               let url = URL(string: "\(URL_IMAGE_PATH)\(imgUrl)"){
                 
                 MovieImageView(width: 100, height: 150, url: url)
                 

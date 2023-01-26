@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PopularTvShowsView: View {
     @ObservedObject var viewModel = MovieDBViewModel(service: MovieDBService())
+    @State var searchString: String = ""
     
     var body: some View {
         NavigationView {
@@ -25,17 +26,40 @@ struct PopularTvShowsView: View {
                               errorButtonText: "Retry",
                               handler: viewModel.getPopularTvShows)
                 case .success(content: let movies):
-                    List {
-                        ForEach(movies) { movie in
-                            NavigationLink(destination: TvShowDetailView(movieId: movie.id)){
-                                MovieCellView(movie: movie)
-                            }
+                    VStack{
+                       
+                        HStack(spacing: 10){
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.gray)
+                                .padding(.horizontal)
+                            TextField("Search TV Show", text:$searchString)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 5)
+                                .background(Color.white)
+                            Button("search", action: {
+                                if(searchString.count > 2){
+                                    viewModel.search(by: searchString, isMovie: false)
+                                }
+                                if(searchString.count == 0){
+                                    viewModel.refreshPopularTvShows()
+                                }
+                            })
+                            .padding(.horizontal)
+                            
                         }
                         
-                        ProgressView()
-                            .onAppear{
-                                viewModel.loadMoreData(isMovies: false)
+                        List {
+                            ForEach(movies) { movie in
+                                NavigationLink(destination: TvShowDetailView(movieId: movie.id)){
+                                    MovieCellView(movie: movie)
+                                }
                             }
+                            
+                            Color.white.frame(height: 2)
+                                .onAppear{
+                                    viewModel.loadMoreData(isMovies: false, searchString: nil)
+                                }
+                        }
                     }
                 
                 }
@@ -45,6 +69,7 @@ struct PopularTvShowsView: View {
         }
         .onAppear(perform: viewModel.getPopularTvShows)
         .refreshable {
+            searchString = ""
             viewModel.refreshPopularTvShows()
         }
         

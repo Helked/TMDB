@@ -29,27 +29,26 @@ struct PopularMoviesView: View {
                               handler: viewModel.getPopularMovies)
                 case .success(content: let movies):
                     VStack {
-                        
                     
-                    HStack(spacing: 10){
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
+                        HStack(spacing: 10){
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.gray)
+                                .padding(.horizontal)
+                            TextField("Search movie", text:$searchString)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 5)
+                                .background(Color.white)
+                            Button("search", action: {
+                                if(searchString.count > 2){
+                                    viewModel.search(by: searchString, isMovie: true)
+                                }
+                                if(searchString.count == 0){
+                                    viewModel.refreshPopularMovies()
+                                }
+                            })
                             .padding(.horizontal)
-                        TextField("Search movie", text:$searchString)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 5)
-                            .background(Color.white)
-                        Button("search", action: {
-                            if(searchString.count > 3){
-                                viewModel.searchMovie(by: searchString)
-                            }
-                            if(searchString.count == 0){
-                                viewModel.refreshPopularMovies()
-                            }
-                        })
-                        .padding(.horizontal)
                             
-                    }
+                        }
                     
                         List {
                             ForEach(movies) { movie in
@@ -58,9 +57,9 @@ struct PopularMoviesView: View {
                                 }
                             }
                             
-                            ProgressView()
+                            Color.white.frame(height: 2)
                                 .onAppear{
-                                    viewModel.loadMoreData(isMovies: true)
+                                    viewModel.loadMoreData(isMovies: true, searchString: searchString)
                                 }
                         }
                     }
@@ -71,6 +70,7 @@ struct PopularMoviesView: View {
         }
         .onAppear(perform: viewModel.getPopularMovies)
         .refreshable {
+            searchString = ""
             viewModel.refreshPopularMovies()
         }
         

@@ -11,6 +11,9 @@
 		F94F9832298183C30007F3EB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F9831298183C30007F3EB /* HomeView.swift */; };
 		F94F9834298188B80007F3EB /* PopularTvShowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F9833298188B80007F3EB /* PopularTvShowsView.swift */; };
 		F94F9836298191140007F3EB /* TvShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F9835298191140007F3EB /* TvShowDetailView.swift */; };
+		F94F983829825C0D0007F3EB /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F983729825C0D0007F3EB /* ApiResponse.swift */; };
+		F94F983A29825C2D0007F3EB /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F983929825C2D0007F3EB /* Genre.swift */; };
+		F94F983C29826C590007F3EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F983B29826C590007F3EB /* Constants.swift */; };
 		F9D124FB29802851006B2503 /* MovieDBAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D124FA29802851006B2503 /* MovieDBAppApp.swift */; };
 		F9D124FF29802852006B2503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D124FE29802852006B2503 /* Assets.xcassets */; };
 		F9D1250229802852006B2503 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D1250129802852006B2503 /* Preview Assets.xcassets */; };
@@ -32,6 +35,9 @@
 		F94F9831298183C30007F3EB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F94F9833298188B80007F3EB /* PopularTvShowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTvShowsView.swift; sourceTree = "<group>"; };
 		F94F9835298191140007F3EB /* TvShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowDetailView.swift; sourceTree = "<group>"; };
+		F94F983729825C0D0007F3EB /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		F94F983929825C2D0007F3EB /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		F94F983B29826C590007F3EB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F9D124F729802851006B2503 /* MovieDBApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieDBApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D124FA29802851006B2503 /* MovieDBAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBAppApp.swift; sourceTree = "<group>"; };
 		F9D124FE29802852006B2503 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				F9D1250E29802FA0006B2503 /* Movie.swift */,
+				F94F983729825C0D0007F3EB /* ApiResponse.swift */,
+				F94F983929825C2D0007F3EB /* Genre.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				F9D12511298032C0006B2503 /* MovieDBEndpoint.swift */,
+				F94F983B29826C590007F3EB /* Constants.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -240,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9D124FB29802851006B2503 /* MovieDBAppApp.swift in Sources */,
+				F94F983C29826C590007F3EB /* Constants.swift in Sources */,
 				F94F9832298183C30007F3EB /* HomeView.swift in Sources */,
 				F94F9830298181930007F3EB /* MovieImageView.swift in Sources */,
 				F9D1251B29806F42006B2503 /* MovieDBService.swift in Sources */,
@@ -248,7 +258,9 @@
 				F9D1251829806ED3006B2503 /* ResultState.swift in Sources */,
 				F9D1252129807B1A006B2503 /* MovieCellView.swift in Sources */,
 				F9D1252E29814611006B2503 /* MovieDetailView.swift in Sources */,
+				F94F983A29825C2D0007F3EB /* Genre.swift in Sources */,
 				F9D1250F29802FA0006B2503 /* Movie.swift in Sources */,
+				F94F983829825C0D0007F3EB /* ApiResponse.swift in Sources */,
 				F94F9836298191140007F3EB /* TvShowDetailView.swift in Sources */,
 				F9D1251529806E22006B2503 /* APIError.swift in Sources */,
 				F9D1251F29807577006B2503 /* ErrorView.swift in Sources */,

@@ -15,7 +15,8 @@ protocol MovieDBViewModelProtocol {
 
 class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
     
-    var page: Int = 1
+    private var page: Int = 1
+    private var totalPages: Int = 1
     
     private let service: MovieDBService
     
@@ -32,7 +33,10 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
         self.service = service
     }
     
-   //MOVIES -----------------------------
+   
+    
+    //MOVIES -----------------------------
+    
     func getPopularMovies() {
         if(self.page == 1){
             self.state = .loading
@@ -49,6 +53,7 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
                 }
             } receiveValue: { response in
                 self.movieList.append(contentsOf: response.movies)
+                self.totalPages = response.totalPages
             }
         self.cancellables.insert(cancellable)
    
@@ -73,13 +78,11 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
         self.cancellables.insert(cancellable)
     }
     
-    func searchMovie(by title: String) {
-        
-        self.movieList.removeAll()
-        self.state = .loading
-        
+    
+    private func searchMovie(by title: String) {
+    
         let cancellable = service
-            .request(from: .searchMovie(title: title), decodingType: ApiResponse.self)
+            .request(from: .searchMovie(title: title, page: page), decodingType: ApiResponse.self)
             .sink { result in
                 switch result{
                 case .finished:
@@ -89,13 +92,13 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
                 }
             } receiveValue: { response in
                 self.movieList.append(contentsOf: response.movies)
+                self.totalPages = response.totalPages
             }
         self.cancellables.insert(cancellable)
     }
     
     func refreshPopularMovies() {
-        self.page = 1
-        self.movieList.removeAll()
+        resetData()
         getPopularMovies()
     }
     
@@ -141,18 +144,63 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
         self.cancellables.insert(cancellable)
     }
     
+    
+    private func searchTvShow(by title: String) {
+        
+        let cancellable = service
+            .request(from: .searchTvShow(title: title, page: page), decodingType: ApiResponse.self)
+            .sink { result in
+                switch result{
+                case .finished:
+                    self.state = .success(content: self.movieList)
+                case .failure(let error):
+                    self.state = .failed(error: error)
+                }
+            } receiveValue: { response in
+                self.movieList.append(contentsOf: response.movies)
+                self.totalPages = response.totalPages
+            }
+        self.cancellables.insert(cancellable)
+    }
+    
+    
     func refreshPopularTvShows() {
-        self.page = 1
-        self.movieList.removeAll()
+        resetData()
         getPopularTvShows()
     }
     
     //------------------------
     
+    func search(by title: String, isMovie: Bool) {
+        resetData()
+        self.state = .loading
+        
+        isMovie ? searchMovie(by: title) : searchTvShow(by: title)
+    }
     
-    func loadMoreData(isMovies: Bool) {
+    
+    private func resetData() {
+        self.page = 1
+        self.totalPages = 1
+        self.movieList.removeAll()
+    }
+    
+    
+    func loadMoreData(isMovies: Bool, searchString: String?) {
         self.page += 1
-        isMovies ? getPopularMovies() : getPopularTvShows()
+        
+        print("Total pages: \(self.totalPages)")
+        print("current pag: \(self.page)")
+        
+        
+        if(self.page <= self.totalPages){
+            if(searchString == nil || searchString?.count == 0){
+                isMovies ? getPopularMovies() : getPopularTvShows()
+            }else{
+                isMovies ? searchMovie(by: searchString!) : searchTvShow(by: searchString!)
+            }
+            
+        }
     }
     
     
