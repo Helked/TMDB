@@ -9,12 +9,7 @@ import Foundation
 import Combine
 
 
-protocol MovieDBServiceProtocol {
-    func request<T>(from endpoint: MovieDBApi, decodingType: T.Type) -> AnyPublisher <T, APIError> where T: Decodable
-}
-
-
-struct MovieDBService: MovieDBServiceProtocol {
+struct MovieDBService {
     
     func request<T>(from endpoint: MovieDBApi, decodingType: T.Type) -> AnyPublisher<T, APIError> where T: Decodable {
         

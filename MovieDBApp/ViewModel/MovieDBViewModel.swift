@@ -9,11 +9,7 @@ import Foundation
 import Combine
 
 
-protocol MovieDBViewModelProtocol {
-    func getPopularMovies()
-}
-
-class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
+class MovieDBViewModel: ObservableObject {
     
     private var page: Int = 1
     private var totalPages: Int = 1

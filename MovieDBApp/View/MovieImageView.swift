@@ -18,12 +18,12 @@ struct MovieImageView: View {
                     content: { image in
                         image.resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: self.width, height: self.height)
+                            .frame(maxWidth: self.width, maxHeight: self.height)
                              
                     },
                     placeholder: {
                         ProgressView()
-                            .frame(width: self.width, height: self.height)
+                            .frame(maxWidth: self.width, maxHeight: self.height)
                     }
         )
     }
