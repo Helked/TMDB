@@ -38,6 +38,14 @@ struct PopularMoviesView: View {
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 5)
                                 .background(Color.white)
+                            if(searchString.count > 0){
+                                Button(action: {
+                                    searchString = ""
+                                }) {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(.gray)
+                                }
+                            }
                             Button("search", action: {
                                 if(searchString.count > 2){
                                     viewModel.search(by: searchString, isMovie: true)
