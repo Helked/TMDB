@@ -189,9 +189,6 @@ class MovieDBViewModel: ObservableObject, MovieDBViewModelProtocol {
     func loadMoreData(isMovies: Bool, searchString: String?) {
         self.page += 1
         
-        print("Total pages: \(self.totalPages)")
-        print("current pag: \(self.page)")
-        
         
         if(self.page <= self.totalPages){
             if(searchString == nil || searchString?.count == 0){
