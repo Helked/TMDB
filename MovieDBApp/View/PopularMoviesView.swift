@@ -48,7 +48,7 @@ struct PopularMoviesView: View {
                             }
                             Button("search", action: {
                                 if(searchString.count > 2){
-                                    viewModel.search(by: searchString, isMovie: true)
+                                    viewModel.search(by: searchString)
                                 }
                                 if(searchString.count == 0){
                                     viewModel.refreshPopularMovies()
@@ -67,7 +67,7 @@ struct PopularMoviesView: View {
                             
                             Color.white.frame(height: 2)
                                 .onAppear{
-                                    viewModel.loadMoreData(isMovies: true, searchString: searchString)
+                                    viewModel.loadMoreData(searchString: searchString)
                                 }
                         }
                     }

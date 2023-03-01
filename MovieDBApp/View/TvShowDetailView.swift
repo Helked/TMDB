@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TvShowDetailView: View {
-    @ObservedObject var viewModel = MovieDBViewModel(service: MovieDBService())
+    @ObservedObject var viewModel = TVShowViewModel(service: MovieDBService())
     let movieId: Int
     
     var body: some View {
@@ -24,12 +24,12 @@ struct TvShowDetailView: View {
             case .failed(error: let error):
                 ErrorView(error: error,
                           errorButtonText: "Retry",
-                          handler: viewModel.getPopularMovies)
+                          handler: viewModel.getPopularTvShows)
             case .success(content: let movies):
-                let movie: Movie = movies[0]
+                let tvShow: Movie = movies[0]
                 
                 VStack{
-                    if let bannerUrl = movie.banner,
+                    if let bannerUrl = tvShow.banner,
                        let url = URL(string: "\(URL_IMAGE_PATH)\(bannerUrl)"){
                         
                         MovieImageView(width: .infinity, height: 200, url: url)
@@ -40,20 +40,20 @@ struct TvShowDetailView: View {
                 }
                 
                 
-                Text(viewModel.getTitle(movie: movie))
+                Text(viewModel.getTitle(show: tvShow))
                     .font(.custom("Arial", size: 26))
                     .fontWeight(.bold)
                     .multilineTextAlignment(.leading)
                     .padding(.top, 15)
                 
-                Text("(\(viewModel.getReleaseYear(movie: movie)))")
+                Text("(\(viewModel.getReleaseYear(show: tvShow)))")
                     .font(.custom("Arial", size: 26))
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.leading)
                     
                 
                 HStack {
-                    ForEach(movie.genres ?? []) { genre in
+                    ForEach(tvShow.genres ?? []) { genre in
                         Text(genre.name)
                             .font(.custom("Arial", size: 12))
                             .foregroundColor(.gray)
@@ -61,14 +61,14 @@ struct TvShowDetailView: View {
                     .padding(.top, 5)
                 }
                 
-                if let tagline = movie.tagline {
+                if let tagline = tvShow.tagline {
                     Text(tagline)
                         .font(.custom("Arial", size: 18))
                         .padding(.top, 10)
                         .italic()
                 }
                 
-                Text(movie.overview)
+                Text(tvShow.overview)
                     .font(.custom("Arial", size: 18))
                     .padding(10)
                 

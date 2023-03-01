@@ -14,6 +14,7 @@
 		F94F983829825C0D0007F3EB /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F983729825C0D0007F3EB /* ApiResponse.swift */; };
 		F94F983A29825C2D0007F3EB /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F983929825C2D0007F3EB /* Genre.swift */; };
 		F94F983C29826C590007F3EB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F983B29826C590007F3EB /* Constants.swift */; };
+		F9A06BDB29AF470A00174038 /* TVShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A06BDA29AF470A00174038 /* TVShowViewModel.swift */; };
 		F9D124FB29802851006B2503 /* MovieDBAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D124FA29802851006B2503 /* MovieDBAppApp.swift */; };
 		F9D124FF29802852006B2503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D124FE29802852006B2503 /* Assets.xcassets */; };
 		F9D1250229802852006B2503 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D1250129802852006B2503 /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		F94F983729825C0D0007F3EB /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		F94F983929825C2D0007F3EB /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		F94F983B29826C590007F3EB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F9A06BDA29AF470A00174038 /* TVShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowViewModel.swift; sourceTree = "<group>"; };
 		F9D124F729802851006B2503 /* MovieDBApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieDBApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D124FA29802851006B2503 /* MovieDBAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBAppApp.swift; sourceTree = "<group>"; };
 		F9D124FE29802852006B2503 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				F9D1251C29807141006B2503 /* MovieDBViewModel.swift */,
+				F9A06BDA29AF470A00174038 /* TVShowViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				F9D1252329807B58006B2503 /* PlaceholderView.swift in Sources */,
 				F94F9834298188B80007F3EB /* PopularTvShowsView.swift in Sources */,
 				F9D12512298032C0006B2503 /* MovieDBEndpoint.swift in Sources */,
+				F9A06BDB29AF470A00174038 /* TVShowViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +407,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -432,6 +437,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PopularTvShowsView: View {
-    @ObservedObject var viewModel = MovieDBViewModel(service: MovieDBService())
+    @ObservedObject var viewModel = TVShowViewModel(service: MovieDBService())
     @State var searchString: String = ""
     
     var body: some View {
@@ -46,7 +46,7 @@ struct PopularTvShowsView: View {
                             }
                             Button("search", action: {
                                 if(searchString.count > 2){
-                                    viewModel.search(by: searchString, isMovie: false)
+                                    viewModel.search(by: searchString)
                                 }
                                 if(searchString.count == 0){
                                     viewModel.refreshPopularTvShows()
@@ -65,7 +65,7 @@ struct PopularTvShowsView: View {
                             
                             Color.white.frame(height: 2)
                                 .onAppear{
-                                    viewModel.loadMoreData(isMovies: false, searchString: nil)
+                                    viewModel.loadMoreData(searchString: nil)
                                 }
                         }
                     }

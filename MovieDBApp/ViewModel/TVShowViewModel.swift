@@ -1,22 +1,22 @@
 //
-//  MovieDBViewModel.swift
+//  TVShowViewModel.swift
 //  MovieDBApp
 //
-//  Created by Rafa Garrido on 24/1/23.
+//  Created by Rafa Garrido on 1/3/23.
 //
 
 import Foundation
 import Combine
 
 
-class MovieDBViewModel: ObservableObject {
+class TVShowViewModel: ObservableObject {
     
     private var page: Int = 1
     private var totalPages: Int = 1
     
     private let service: MovieDBService
     
-    private(set) var movieList = [Movie]()
+    private(set) var showsList = [Movie]()
     private(set) var genresList = [Genre]()
     
     
@@ -31,69 +31,70 @@ class MovieDBViewModel: ObservableObject {
     
    
     
-    func getPopularMovies() {
+    
+    func getPopularTvShows() {
         if(self.page == 1){
             self.state = .loading
         }
         
         let cancellable = service
-            .request(from: .getPopularMovies(page: page), decodingType: ApiResponse.self)
+            .request(from: .getPopularTvShows(page: page), decodingType: ApiResponse.self)
             .sink { result in
                 switch result{
                 case .finished:
-                    self.state = .success(content: self.movieList)
+                    self.state = .success(content: self.showsList)
                 case .failure(let error):
                     self.state = .failed(error: error)
                 }
             } receiveValue: { response in
-                self.movieList.append(contentsOf: response.movies)
-                self.totalPages = response.totalPages
+                self.showsList.append(contentsOf: response.movies)
             }
         self.cancellables.insert(cancellable)
    
     }
     
     
-    func getMovieDetails(movieId: Int) {
+    func getTvShowDetails(movieId: Int) {
         
         self.state = .loading
         let cancellable = service
-            .request(from: .getMovieDetails(id: movieId), decodingType: Movie.self)
+            .request(from: .getTvShowDetails(id: movieId), decodingType: Movie.self)
             .sink { result in
                 switch result{
                 case .finished:
-                    self.state = .success(content: self.movieList)
+                    self.state = .success(content: self.showsList)
                 case .failure(let error):
                     self.state = .failed(error: error)
                 }
             } receiveValue: { response in
-                self.movieList.append(response)
+                self.showsList.append(response)
             }
         self.cancellables.insert(cancellable)
     }
     
     
-    private func searchMovie(by title: String) {
-    
+    private func searchTvShow(by title: String) {
+        
         let cancellable = service
-            .request(from: .searchMovie(title: title, page: page), decodingType: ApiResponse.self)
+            .request(from: .searchTvShow(title: title, page: page), decodingType: ApiResponse.self)
             .sink { result in
                 switch result{
                 case .finished:
-                    self.state = .success(content: self.movieList)
+                    self.state = .success(content: self.showsList)
                 case .failure(let error):
                     self.state = .failed(error: error)
                 }
             } receiveValue: { response in
-                self.movieList.append(contentsOf: response.movies)
+                self.showsList.append(contentsOf: response.movies)
                 self.totalPages = response.totalPages
             }
         self.cancellables.insert(cancellable)
     }
     
-    func refreshPopularMovies() {
+    
+    func refreshPopularTvShows() {
         resetData()
-        getPopularMovies()
+        getPopularTvShows()
     }
     
     
@@ -102,40 +103,41 @@ class MovieDBViewModel: ObservableObject {
         resetData()
         self.state = .loading
         
-        searchMovie(by: title)
+        searchTvShow(by: title)
     }
     
     
     private func resetData() {
         self.page = 1
         self.totalPages = 1
-        self.movieList.removeAll()
+        self.showsList.removeAll()
     }
     
     
     func loadMoreData(searchString: String?) {
         self.page += 1
         
+        
         if(self.page <= self.totalPages){
             if(searchString == nil || searchString?.count == 0){
-                getPopularMovies()
+                getPopularTvShows()
             }else{
-                searchMovie(by: searchString!)
+                searchTvShow(by: searchString!)
             }
             
         }
     }
     
     
-    func getReleaseYear(movie: Movie) -> String {
+    func getReleaseYear(show: Movie) -> String {
         
-        if(movie.release != nil){
-            let dateComponents = movie.release!.components(separatedBy: "-")
+        if(show.release != nil){
+            let dateComponents = show.release!.components(separatedBy: "-")
             return dateComponents[0]
         }
         
-        if(movie.firstDate != nil){
-            let dateComponents = movie.firstDate!.components(separatedBy: "-")
+        if(show.firstDate != nil){
+            let dateComponents = show.firstDate!.components(separatedBy: "-")
             return dateComponents[0]
         }
         
@@ -144,14 +146,12 @@ class MovieDBViewModel: ObservableObject {
     }
     
     
-    func getTitle(movie: Movie) -> String {
-        if (movie.title != nil) { return movie.title! }
-        if (movie.name != nil) { return movie.name! }
+    func getTitle(show: Movie) -> String {
+        if (show.title != nil) { return show.title! }
+        if (show.name != nil) { return show.name! }
         return "No title"
     }
     
     
     
 }
-
-
